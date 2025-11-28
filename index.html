@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>P5.js 비주얼 포트폴리오</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 20px;
+        color: #333;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        color: #666;
+        margin-top: -5px;
+        margin-bottom: 30px;
+    }
+
+    .slide-container {
+        width: 80%;
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .row {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .item {
+        width: 45%;
+        background: #fafafa;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .item img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .caption {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #4a7afe;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px;
+    }
+
+    .btn:hover {
+        background: #3259d4;
+    }
+</style>
+</head>
+
+<body>
+
+<h1 class="title">P5.js 비주얼 포트폴리오</h1>
+<p class="subtitle">소프트웨어학부 20211536 이동현</p>
+
+<div class="slide-container">
+
+    <div id="slide-area"></div>
+
+    <button class="btn" onclick="prevSlide()">이전</button>
+    <button class="btn" onclick="nextSlide()">다음</button>
+</div>
+
+<script>
+    // 2개씩 묶인 슬라이드
+    const slides = [
+        [
+            { img: "images/hw1.png", caption: "(과제 #1)" },
+            { img: "images/hw4.gif", caption: "(과제 #4)" }
+        ],
+        [
+            { img: "images/hw2.png", caption: "(과제 #2)" },
+            { img: "images/hw3.gif", caption: "(과제 #3)" }
+        ]
+    ];
+
+    let current = 0;
+
+    function renderSlide() {
+        let html = '<div class="row">';
+        slides[current].forEach(item => {
+            html += `
+                <div class="item">
+                    <img src="${item.img}">
+                    <div class="caption">${item.caption}</div>
+                </div>
+            `;
+        });
+        html += '</div>';
+
+        document.getElementById("slide-area").innerHTML = html;
+    }
+
+    function nextSlide() {
+        current = (current + 1) % slides.length;
+        renderSlide();
+    }
+
+    function prevSlide() {
+        current = (current - 1 + slides.length) % slides.length;
+        renderSlide();
+    }
+
+    // 초기 렌더링
+    renderSlide();
+</script>
+
+</body>
+</html>
